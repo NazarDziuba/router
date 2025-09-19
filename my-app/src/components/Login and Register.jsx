@@ -1,11 +1,13 @@
 import {useState} from "react";
+import {generatePath, NavLink} from "react-router";
 
 export default function Login() {
-    const[userLog, setUserLog] = useState(
+    const[user, setUser] = useState(
         {
             email: "",
             name: "",
-            password: ""
+            password: "",
+            id: Date.now()
         }
     );
 
@@ -63,7 +65,9 @@ export function SignUp() {
                         <input type='text' id='text' placeholder='Type your user name' className='username-input signUp-input' required />
                     </div>
                     <div className='button-container'>
-                        <button type='submit' className="signup-button">Sign up</button>
+                        <NavLink to={generatePath('/account/:userId', {userId: user.id})} >
+                            <button type='submit' className="signup-button">Sign up</button>
+                        </NavLink>
                     </div>
                 </div>
             </div>
