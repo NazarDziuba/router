@@ -33,6 +33,8 @@ export default function Login() {
 
 export function SignUp() {
 
+
+
     const navigate = useNavigate();
     const[user, setUser] = useState(
         {
@@ -71,7 +73,7 @@ console.log(user)
                     <div className='phone-container signup-input-container'>
                         <label htmlFor='tel'>Enter your phone number:</label>
                         <input type='tel' id='tel' placeholder='Type your Phone number' className='phone-input signUp-input' required
-                        value={user.phone}
+                        value={user.phoneNumber}
                         onChange={(e) => setUser(u => ({...u, phoneNumber: e.target.value}))}
                         />
                     </div>
