@@ -1,16 +1,7 @@
 import {useState} from "react";
-import {generatePath, NavLink} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
-    const[user, setUser] = useState(
-        {
-            email: "",
-            name: "",
-            password: "",
-            id: Date.now()
-        }
-    );
-
 
 
     return(
@@ -19,7 +10,7 @@ export default function Login() {
             <div className="login-inputs">
                 <div className="login-select-cont">
                     <div className="login-input">
-                        <label for='log'>Enter your Email or phone number:</label>
+                        <label htmlFor='log'>Enter your Email or phone number:</label>
                         <input type='tel' id='log' placeholder='Type your Email or phone number' className='login-input-field' required />
                     </div>
                     <select className='login-select'>
@@ -28,7 +19,7 @@ export default function Login() {
                     </select>
                 </div>
                 <div className="password-container">
-                    <label for='password'>Enter your password:</label>
+                    <label htmlFor='password'>Enter your password:</label>
                     <input type='password' placeholder='Type your password' id='password' className='password-input-field' required />
                 </div>
             </div>
@@ -41,35 +32,75 @@ export default function Login() {
 }
 
 export function SignUp() {
+
+    const navigate = useNavigate();
+    const[user, setUser] = useState(
+        {
+            email: "",
+            username: "",
+            password: "",
+            confirmPassword: "",
+            phoneNumber: "",
+        }
+    );
+
+    const onSubmit = (e) => {
+
+        e.preventDefault();
+
+        if(user.password !== user.confirmPassword) return
+
+        const userId = Date.now()
+
+        navigate(`/account/${userId}`, {replace: true, viewTransition: true})
+    }
+
+console.log(user)
+
     return(
+        <form onSubmit={onSubmit} className='signUp-form'>
             <div className="signup-child">
                 <div className="signup-child-elements">
                     <div className='email-container signup-input-container'>
-                        <label for='email'>Enter your Email:</label>
-                        <input type='email' id='email' placeholder='Type your Email or Phone number' className='email-input signUp-input' required />
+                        <label htmlFor='email'>Enter your Email:</label>
+                        <input type='email' id='email' placeholder='Type your Email or Phone number' className='email-input signUp-input' required
+                        value={user.email}
+                        onChange={(e) => setUser(u => ({...u, email: e.target.value}))}
+                        />
                     </div>
                     <div className='phone-container signup-input-container'>
-                        <label for='tel'>Enter your phone number:</label>
-                        <input type='tel' id='tel' placeholder='Type your Phone number' className='phone-input signUp-input' required />
+                        <label htmlFor='tel'>Enter your phone number:</label>
+                        <input type='tel' id='tel' placeholder='Type your Phone number' className='phone-input signUp-input' required
+                        value={user.phone}
+                        onChange={(e) => setUser(u => ({...u, phoneNumber: e.target.value}))}
+                        />
                     </div>
                     <div className='pass-container signup-input-container'>
-                        <label for='password'>Enter your password:</label>
-                        <input type='password' id='password' placeholder='Type your password' className='password-sign-input signUp-input' required />
+                        <label htmlFor='password'>Enter your password:</label>
+                        <input type='password' id='password' placeholder='Type your password' className='password-sign-input signUp-input' required
+                        value={user.password}
+                        onChange={(e) => setUser(u => ({...u, password: e.target.value}))}
+                        />
                     </div>
                     <div className='confPass-container signup-input-container'>
-                        <label for='password'>Confirm your password:</label>
-                        <input type='password' id='password' placeholder='Password' className='password-confirm-input signUp-input' required />
+                        <label htmlFor='password'>Confirm your password:</label>
+                        <input type='password' id='password' placeholder='Password' className='password-confirm-input signUp-input' required
+                        value={user.confirmPassword}
+                        onChange={(e) => setUser(u => ({...u, confirmPassword: e.target.value}))}
+                        />
                     </div>
                     <div className='userName-container signup-input-container'>
-                        <label for='text'>Enter your user name:</label>
-                        <input type='text' id='text' placeholder='Type your user name' className='username-input signUp-input' required />
+                        <label htmlFor='text'>Enter your user name:</label>
+                        <input type='text' id='text' placeholder='Type your user name' className='username-input signUp-input' required
+                        value={user.username}
+                        onChange={(e) => setUser(u => ({...u, username: e.target.value}))}
+                        />
                     </div>
                     <div className='button-container'>
-                        <NavLink to={generatePath('/account/:userId', {userId: user.id})} >
                             <button type='submit' className="signup-button">Sign up</button>
-                        </NavLink>
                     </div>
                 </div>
             </div>
+        </form>
     )
 }

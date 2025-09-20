@@ -406,7 +406,10 @@ button{
 
 /* SIGN UP START */
 
-
+.signUp-form{
+    width: 100%;
+    height: 100%;
+}
 
 .signup-child{
     height: 100%;
