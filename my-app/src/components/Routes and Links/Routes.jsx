@@ -2,7 +2,7 @@ import {Routes, Route, Navigate} from "react-router";
 import Home from "../Home.jsx";
 import About from "../About.jsx";
 import Error from "../Error.jsx";
-import Login, {SignUp} from "../Login and Register.jsx";
+import Login, {SignUp} from "../LoginAndRegister.jsx";
 import AuthLayout from "../AuthLayout.jsx";
 import Account from "../Account.jsx";
 
