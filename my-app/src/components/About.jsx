@@ -3,7 +3,10 @@ import {NavLink} from "react-router";
 import hi from '../assets/hiHand.png';
 import click from '../assets/click.png';
 
-export default function About(){
+export default function About({auth}){
+
+    const isActive = Boolean(auth.token);
+
     return (
         <div className="about-container">
             <div className="about-text-segm-about">
@@ -27,9 +30,15 @@ export default function About(){
                 <img alt="click" src={click} className="about-img img-click " />
             </div>
             <div className="about-button-div">
-            <NavLink to={'/'}><button className="about-button home-button" >Home</button></NavLink>
+                <NavLink to={'/'}><button className="about-button home-button" >Home</button></NavLink>
+                { isActive ?
+                <NavLink to={`/account/${auth.user.id}`}><button className="about-button">Account</button></NavLink>
+                    :
+                <>
                 <NavLink to='/auth/login'><button className="about-button">Login</button></NavLink>
                 <NavLink to='/auth/signup'><button className="about-button">Register</button></NavLink>
+                </>
+                }
             </div>
         <Outlet />
         </div>

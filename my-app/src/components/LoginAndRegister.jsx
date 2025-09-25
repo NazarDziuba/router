@@ -1,10 +1,12 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export default function Login() {
+
+export default function Login({auth, setAuth}) {
 
 
     return(
+        <form >
         <div className="login-child">
             <div className="login-child-elements" >
             <div className="login-inputs">
@@ -19,8 +21,8 @@ export default function Login() {
                     </select>
                 </div>
                 <div className="password-container">
-                    <label htmlFor='password'>Enter your password:</label>
-                    <input type='password' placeholder='Type your password' id='password' className='password-input-field' required />
+                    <label htmlFor='passwordLogin'>Enter your password:</label>
+                    <input type='password' placeholder='Type your password' id='passwordLogin' className='password-input-field' required />
                 </div>
             </div>
             <div className="login-button-div">
@@ -28,10 +30,11 @@ export default function Login() {
             </div>
             </div>
         </div>
+        </form>
     )
 }
 
-export function SignUp() {
+export function SignUp({auth, setAuth, usersList, setUsersList}) {
 
 
 
@@ -46,18 +49,38 @@ export function SignUp() {
         }
     );
 
+    const userId = Date.now()
+
+    const registerAndAdd = () => {
+        const next = {
+            user: {
+                id: userId,
+                email: user.email,
+                password: user.password,
+                username: user.username,
+                phoneNumber: user.phoneNumber,
+            },
+            token: crypto.randomUUID()};
+        setAuth(next);
+        localStorage.setItem('auth', JSON.stringify(next));
+
+        const current = JSON.parse(localStorage.getItem('usersList') || '[]');
+        const updated = [...current, next];
+        setUsersList?.(prev => (Array.isArray(prev) ? [...prev, next] : [next]))
+        localStorage.setItem('usersList', JSON.stringify(updated));
+    }
+
     const onSubmit = (e) => {
 
         e.preventDefault();
 
         if(user.password !== user.confirmPassword) return
 
-        const userId = Date.now()
+        registerAndAdd()
 
         navigate(`/account/${userId}`, {replace: true, viewTransition: true})
     }
 
-console.log(user)
 
     return(
         <form onSubmit={onSubmit} className='signUp-form'>
@@ -78,15 +101,15 @@ console.log(user)
                         />
                     </div>
                     <div className='pass-container signup-input-container'>
-                        <label htmlFor='password'>Enter your password:</label>
-                        <input type='password' id='password' placeholder='Type your password' className='password-sign-input signUp-input' required
+                        <label htmlFor='passwordSignUp'>Enter your password:</label>
+                        <input type='password' id='passwordSignUp' placeholder='Type your password' className='password-sign-input signUp-input' required
                         value={user.password}
                         onChange={(e) => setUser(u => ({...u, password: e.target.value}))}
                         />
                     </div>
                     <div className='confPass-container signup-input-container'>
-                        <label htmlFor='password'>Confirm your password:</label>
-                        <input type='password' id='password' placeholder='Password' className='password-confirm-input signUp-input' required
+                        <label htmlFor='passwordConfirm'>Confirm your password:</label>
+                        <input type='password' id='passwordConfirm' placeholder='Password' className='password-confirm-input signUp-input' required
                         value={user.confirmPassword}
                         onChange={(e) => setUser(u => ({...u, confirmPassword: e.target.value}))}
                         />
@@ -106,3 +129,4 @@ console.log(user)
         </form>
     )
 }
+
