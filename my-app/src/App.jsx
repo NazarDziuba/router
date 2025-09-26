@@ -16,7 +16,7 @@ export default function App() {
     }
 
     const [auth, setAuth] = useState(() => safeParse("auth", {user: null, token: null}));
-    const [usersList, setUsersList] = useState(() => safeParse("usersList", '[]'));
+    const [usersList, setUsersList] = useState(() => safeParse("usersList", []));
     console.log(auth)
     console.log(usersList)
     return (

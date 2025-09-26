@@ -1,8 +1,16 @@
 import logo from '../assets/user.png'
+import {useNavigate} from "react-router-dom";
 
-export default function Account({auth}) {
+export default function Account({auth, setAuth}) {
 
-    console.log(auth)
+    const navigate = useNavigate();
+
+    const logOut = () => {
+        setAuth({user: null, token: null})
+        localStorage.removeItem('auth')
+        navigate('/', {replace: true})
+    }
+
     return (
         <div className="account-wrapper">
             <div className="account-main">
@@ -21,6 +29,9 @@ export default function Account({auth}) {
                     <div className="account-user-info-phone account-user-info-subDiv">
                         <h2 className="account-user-info-phone-h2">Phone Number</h2>
                         <p className="account-user-info-phone-p">{auth.user.phoneNumber}</p>
+                    </div>
+                    <div className="account-user-log-out-subDiv">
+                        <button type='button' className='account-log-out-btn' onClick={() => logOut()}>Log Out</button>
                     </div>
                 </div>
             </div>

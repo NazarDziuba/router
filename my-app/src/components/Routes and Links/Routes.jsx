@@ -18,6 +18,7 @@ export default function Routers({auth, setAuth, usersList, setUsersList}) {
                 <Route path='login' element={<Login
                     auth={auth}
                     setAuth={setAuth}
+                    usersList={usersList}
                 />} />
                 <Route path='signup' element={<SignUp
                     auth={auth}
@@ -28,7 +29,10 @@ export default function Routers({auth, setAuth, usersList, setUsersList}) {
             </Route>
 
             <Route path='account' >
-                <Route path=':userId' element={<Account auth={auth}/>} />
+                <Route path=':userId' element={<Account
+                    auth={auth}
+                    setAuth={setAuth}
+                />} />
             </Route>
 
             <Route path='*' element={<Error />} />

@@ -2,27 +2,96 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 
-export default function Login({auth, setAuth}) {
+export default function Login({auth, setAuth, usersList}) {
+
+    const [draft, setDraft] = useState(
+        {
+            email: "",
+            password: "",
+            phoneNumber: ""
+        }
+    );
+
+    const navigate = useNavigate();
+
+
+    const [isEmail, setIsEmail] = useState(false);
+
+    const onChange = (e) => {
+        const opt = e.target.options;
+        const curr = opt[opt.selectedIndex].index
+        curr === 0 && setIsEmail(false);
+        curr === 1 && setIsEmail(true);
+    }
+
+    const addEmailOrPhone = e => isEmail
+        ?
+        setDraft(
+            {
+                ...draft,
+                email: e.target.value,
+                phoneNumber: ''
+            }
+        )
+        :
+        setDraft(
+            {
+                ...draft,
+                phoneNumber: e.target.value,
+                email: ''
+            }
+        )
+
+    const login = (e) => {
+        e.preventDefault();
+        if(usersList.length < 1) return
+        const val = isEmail
+            ?
+            usersList.filter(user => user.user.email === draft.email)
+            :
+            usersList.filter(user => user.user.phoneNumber === draft.phoneNumber);
+        const currAcc = val[0];
+        if(draft.password !== currAcc.user.password) return alert('Invalid password');
+        setAuth(currAcc);
+        localStorage.setItem('auth', JSON.stringify(currAcc));
+        navigate(`/account/${currAcc.user.id}`, {replace: true})
+
+    }
+
+    console.log(draft)
+
 
 
     return(
-        <form >
+        <form className="login-form" onSubmit={e => login(e)}>
         <div className="login-child">
             <div className="login-child-elements" >
             <div className="login-inputs">
                 <div className="login-select-cont">
                     <div className="login-input">
                         <label htmlFor='log'>Enter your Email or phone number:</label>
-                        <input type='tel' id='log' placeholder='Type your Email or phone number' className='login-input-field' required />
+                        <input type={isEmail ? 'email' : 'tel'}
+                               value={isEmail ? draft.email : draft.phoneNumber}
+                               id='log'
+                               placeholder={`Type your ${isEmail ? 'Email' : 'phone number'}`}
+                               className='login-input-field' required
+                               onChange={e => addEmailOrPhone(e)}
+                        />
                     </div>
-                    <select className='login-select'>
+                    <select className='login-select' onChange={onChange}>
                         <option value='PhoneNumber'>Phone number</option>
                         <option value='Email'>Email</option>
                     </select>
                 </div>
                 <div className="password-container">
                     <label htmlFor='passwordLogin'>Enter your password:</label>
-                    <input type='password' placeholder='Type your password' id='passwordLogin' className='password-input-field' required />
+                    <input type='password'
+                           placeholder='Type your password'
+                           value={draft.password}
+                           id='passwordLogin'
+                           className='password-input-field'
+                           onChange={e => setDraft(({...draft, password: e.target.value}))}
+                           required />
                 </div>
             </div>
             <div className="login-button-div">

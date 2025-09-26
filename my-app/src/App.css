@@ -321,6 +321,9 @@ button{
 
 /* LOGIN START */
 
+.login-form{
+    height: 100%;
+}
 
 .login-child{
     height: 100%;
@@ -522,7 +525,7 @@ button{
 
 .account-main{
     width: 70%;
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -583,6 +586,23 @@ button{
 
 .account-user-info-email{
     margin: 1em 0;
+}
+
+.account-user-log-out-subDiv{
+    width: 100%;
+    margin-top: 1em;
+    animation: user-info 1s ease-in-out;
+}
+
+.account-log-out-btn{
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.account-log-out-btn:hover{
+    background-color: var(--header-buttons-bg-color);
+
 }
 
 /* ACCOUNT END */
