@@ -514,6 +514,11 @@ button{
 
 /* ACCOUNT START */
 
+.AccountLayout-wrapper{
+    height: 100%;
+    width: 100%;
+}
+
 .account-wrapper{
     width: 100%;
     height: 100%;
@@ -588,21 +593,102 @@ button{
     margin: 1em 0;
 }
 
-.account-user-log-out-subDiv{
+.account-buttons{
     width: 100%;
-    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: start;
     animation: user-info 1s ease-in-out;
 }
 
-.account-log-out-btn{
+.account-user-log-out-subDiv{
+    width: 20%;
+}
+
+.account--btn{
     border: 1px solid black;
     border-radius: 10px;
     background-color: white;
+    transition: 0.3s;
 }
 
-.account-log-out-btn:hover{
-    background-color: var(--header-buttons-bg-color);
+.account--btn:hover{
+    background-color: black;
+    color: white;
 
 }
+
+.account-user-security-subDiv{
+    width: 20%;
+}
+
+
 
 /* ACCOUNT END */
+
+
+
+
+/* ACCOUNT SECURITY START */
+
+.account-security-main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-security-wrapper{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-security-form{
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.account-security-inputs{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.account-security-sub-div{
+width: 50%;
+height: 25%;
+display: flex;
+flex-direction: column;
+align-items: start;
+justify-content: space-between;
+}
+
+.account-security-input{
+    width: 100%;
+    height: 60%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: var(--bcColor-loginChild);
+    padding-left: 1em;
+}
+
+.account-security-button-div{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ACCOUNT SECURITY END */

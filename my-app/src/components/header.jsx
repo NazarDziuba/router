@@ -12,7 +12,7 @@ export default function Header({auth}) {
             <NavLink to='/about'><button className="button-header">About</button></NavLink>
 
                 { isActive ?
-                    <NavLink to='/account/:userId'><button className="button-header">Account</button></NavLink>
+                    <NavLink to={`/account/${auth.user.id}`}><button className="button-header">Account</button></NavLink>
                     :
                     <>
                     <NavLink to='/auth/login'><button className="button-header">Login</button></NavLink>

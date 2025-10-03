@@ -1,7 +1,8 @@
-import logo from '../assets/user.png'
-import {useNavigate} from "react-router-dom";
+import logo from '../../assets/user.png'
+import {Outlet, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
-export default function Account({auth, setAuth}) {
+export default function AccountInfo({auth, setAuth}) {
 
     const navigate = useNavigate();
 
@@ -30,8 +31,15 @@ export default function Account({auth, setAuth}) {
                         <h2 className="account-user-info-phone-h2">Phone Number</h2>
                         <p className="account-user-info-phone-p">{auth.user.phoneNumber}</p>
                     </div>
+                </div>
+                <div className="account-buttons">
                     <div className="account-user-log-out-subDiv">
-                        <button type='button' className='account-log-out-btn' onClick={() => logOut()}>Log Out</button>
+                        <button type='button' className='account--btn' onClick={() => logOut()}>Log Out</button>
+                    </div>
+                    <div className="account-user-security-subDiv">
+                        <NavLink to='security'>
+                            <button type='button' className='account--btn'>Security</button>
+                        </NavLink>
                     </div>
                 </div>
             </div>

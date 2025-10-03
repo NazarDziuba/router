@@ -4,7 +4,9 @@ import About from "../About.jsx";
 import Error from "../Error.jsx";
 import Login, {SignUp} from "../LoginAndRegister.jsx";
 import AuthLayout from "../AuthLayout.jsx";
-import Account from "../Account.jsx";
+import AccountSecurity from "../Account/AccountSecurity.jsx";
+import AccountInfo from "../Account/AccountInfo.jsx";
+import AccountLayout from "../Account/AccountLayout.jsx";
 
 export default function Routers({auth, setAuth, usersList, setUsersList}) {
     return (
@@ -29,10 +31,18 @@ export default function Routers({auth, setAuth, usersList, setUsersList}) {
             </Route>
 
             <Route path='account' >
-                <Route path=':userId' element={<Account
-                    auth={auth}
-                    setAuth={setAuth}
-                />} />
+                <Route path=':userId' element={<AccountLayout />} >
+                    <Route index element={<AccountInfo
+                        auth={auth}
+                        setAuth={setAuth}
+                    />} />
+                    <Route path='security' element={<AccountSecurity
+                        auth={auth}
+                        setAuth={setAuth}
+                        usersList={usersList}
+                        setUsersList={setUsersList}
+                    />} />
+                </ Route>
             </Route>
 
             <Route path='*' element={<Error />} />
