@@ -7,8 +7,10 @@ import AuthLayout from "../AuthLayout.jsx";
 import AccountSecurity from "../Account/AccountSecurity.jsx";
 import AccountInfo from "../Account/AccountInfo.jsx";
 import AccountLayout from "../Account/AccountLayout.jsx";
+import Catalog from "../Catalog.jsx";
+import Meal from "../Meal.jsx";
 
-export default function Routers({auth, setAuth, usersList, setUsersList}) {
+export default function Routers({auth, setAuth, usersList, setUsersList, fetchData}) {
     return (
         <Routes>
             <Route index element={<Home />} />
@@ -43,6 +45,15 @@ export default function Routers({auth, setAuth, usersList, setUsersList}) {
                         setUsersList={setUsersList}
                     />} />
                 </ Route>
+            </Route>
+
+            <Route path='catalog' >
+                <Route index element={<Catalog
+                    fetchData={fetchData}
+                />} />
+                <Route path=':category' element={<Meal
+                    fetchData={fetchData}
+                />} />
             </Route>
 
             <Route path='*' element={<Error />} />

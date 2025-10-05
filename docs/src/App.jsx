@@ -19,6 +19,17 @@ export default function App() {
     const [usersList, setUsersList] = useState(() => safeParse("usersList", []));
     console.log(auth)
     console.log(usersList)
+
+    const BASE = "https://www.themealdb.com/api/json/v1/1/"
+    async function fetchData(endpoint, params={}) {
+        const url = new URL(endpoint, BASE);
+        Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value))
+        const res = await fetch(url)
+        if(!res.ok) throw new Error(`HTTP ${res.status}`)
+        return await res.json()
+    }
+
+
     return (
         <main>
             <Header auth={auth} setAuth={setAuth} />
@@ -27,6 +38,7 @@ export default function App() {
                      setAuth={setAuth}
                      usersList={usersList}
                      setUsersList={setUsersList}
+                     fetchData={fetchData}
             />
             </div>
         </main>

@@ -19,6 +19,7 @@ export default function Header({auth}) {
                     <NavLink to='/auth/signup'><button className="button-header">Register</button></NavLink>
                     </>
                 }
+                <NavLink to='/catalog' ><button className="button-header">Catalog</button></NavLink>
             </div>
             </div>
         </header>
