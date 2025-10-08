@@ -9,6 +9,7 @@ import AccountInfo from "../Account/AccountInfo.jsx";
 import AccountLayout from "../Account/AccountLayout.jsx";
 import Catalog from "../Catalog.jsx";
 import Meal from "../Meal.jsx";
+import Receipt from "../Receipt.jsx";
 
 export default function Routers({auth, setAuth, usersList, setUsersList, fetchData}) {
     return (
@@ -53,7 +54,9 @@ export default function Routers({auth, setAuth, usersList, setUsersList, fetchDa
                 />} />
                 <Route path=':category' element={<Meal
                     fetchData={fetchData}
-                />} />
+                />}>
+                    <Route path=':receiptId' element={<Receipt/>}/>
+                </Route>
             </Route>
 
             <Route path='*' element={<Error />} />
